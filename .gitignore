@@ -1,0 +1,24 @@
+from django.conf import settings
+
+class AppConfig:
+    """Wrapper class for configuration with defaults"""
+    
+    @property
+    def ADMIN_PANEL_MODE(self):
+        return getattr(settings, 'ADMIN_PANEL_MODE', 'basic')
+    
+    @property
+    def PAYMENT_GATEWAYS(self):
+        return getattr(settings, 'PAYMENT_GATEWAYS', [])
+    
+    @property
+    def ANONYMOUS_USER_CREATION(self):
+        return getattr(settings, 'ANONYMOUS_USER_CREATION', False)
+    
+    # Add all other properties similarly...
+    
+    def is_module_enabled(self, module_name):
+        return module_name in getattr(settings, 'ENABLED_MODULES', [])
+
+# Singleton instance
+app_config = AppConfig()
